@@ -1,5 +1,4 @@
-cookies.txt
-users.txt
+Data/*
 *.log
 *.out
 key.pem
@@ -7,3 +6,4 @@ cert.pem
 file_transfer
 public/*
 !public/*.html
+Src/*.o
