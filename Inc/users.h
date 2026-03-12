@@ -3,7 +3,7 @@
 
 #define ITERATIONS 10000
 #define SALT_LEN 16
-#define FILE_PATH "users.txt"
+#define FILE_PATH "Data/users.txt"
 
 struct user_info
 {
@@ -83,7 +83,7 @@ int create_user(const char *username, const char *password, const char *filename
     struct user_info *user = *users;
     while (user)
     {
-        if (user->username && strcmp(user->username, username) == 0)
+        if (strcmp(user->username, username) == 0)
         {
             return 0;
         }
@@ -123,6 +123,16 @@ int create_user(const char *username, const char *password, const char *filename
         "</head>\n"
         "<body>\n"
         "  <h1>Welcome to the File Transfer Service</h1>\n"
+        "  <form method=\"POST\" action=\"/upload\" enctype=\"multipart/form-data\">\n"
+        "    <input\n"
+        "      type=\"file\"\n"
+        "      name=\"file\"\n"
+        "      accept=\".txt,.pdf,.png,.jpg,.zip\"\n"
+        "      required\n"
+        "    />\n"
+        "    <br /><br />\n"
+        "    <button type=\"submit\">Upload File</button>\n"
+        "  </form>\n"
         "</body>\n"
         "</html>\n";
 

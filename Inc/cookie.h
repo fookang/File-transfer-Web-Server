@@ -1,4 +1,4 @@
-#define COOKIE_FILE_PATH "cookies.txt"
+#define COOKIE_FILE_PATH "Data/cookies.txt"
 #define RAW_COOKIE_LEN 256
 #define COOKIE_LEN (RAW_COOKIE_LEN * 2)
 

@@ -17,6 +17,8 @@
 #include <openssl/evp.h>
 #include <openssl/rand.h>
 
+#include <signal.h>
+
 #include "client_info.h"
 #include "users.h"
 #include "cookie.h"
@@ -131,7 +133,7 @@ SSL_CTX *create_context()
     return ctx;
 }
 
-void configure_conext(SSL_CTX *ctx)
+void configure_context(SSL_CTX *ctx)
 {
     if (SSL_CTX_use_certificate_file(ctx, "cert.pem", SSL_FILETYPE_PEM) <= 0)
     {
@@ -808,14 +810,16 @@ void handle_upload(struct client_info **client_list, struct client_info *client,
     drop_client(client_list, client, master, max_socket, server);
 }
 
+
+
 int main()
 {
+    signal(SIGPIPE, SIG_IGN);
     SSL_CTX *ctx = create_context();
-    configure_conext(ctx);
+    configure_context(ctx);
 
     int server = create_socket(0, PORTNO);
 
-    struct client_info *client_list = 0;
     fd_set master;
     FD_ZERO(&master);
     FD_SET(server, &master);
@@ -841,7 +845,7 @@ int main()
 
         if (FD_ISSET(server, &reads))
         {
-            struct client_info *ci = create_client_info(&client_list);
+            struct client_info *ci = create_client_info();
             ci->socket = accept(server, (struct sockaddr *)&ci->address, &ci->address_length);
 
             if (ci->socket < 0)
