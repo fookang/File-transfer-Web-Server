@@ -33,7 +33,7 @@ sudo apt-get install libssl-dev
 openssl req -x509 -newkey rsa:2048 -nodes -keyout key.pem -out cert.pem -days 365
 ```
 
-Note: the generated certificate is self-signed, so your browser will likely show a security warning when accessing `https://localhost:8080`.
+> Note: the generated certificate is self-signed, so your browser will likely show a security warning when accessing `https://localhost:8080`.
 
 4. Build the project:
 
