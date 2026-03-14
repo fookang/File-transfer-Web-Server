@@ -564,8 +564,8 @@ void handle_post_login(struct client_info **client_list, struct client_info *cli
             char cookie_value[COOKIE_LEN + 1] = {0};
             get_form_value(body, "username", username, sizeof(username));
 
-            create_cookie(COOKIE_FILE_PATH, username, cookie_value, sizeof(cookie_value));
-            reload_cookies(COOKIE_FILE_PATH, cookies);
+            create_cookie(username, cookie_value, sizeof(cookie_value));
+            reload_cookies(cookies);
 
             char path_with_user[128];
             snprintf(path_with_user, sizeof(path_with_user), "/%s/home.html", username);
@@ -622,7 +622,7 @@ void handle_upload(struct client_info **client_list, struct client_info *client,
         return;
     }
 
-    char *username = verify_cookie(cookie_value, cookies);
+    char *username = verify_cookie(cookie_value);
     if (!username)
     {
         fprintf(stderr, "Invalid cookie.\n");
@@ -832,8 +832,7 @@ int main()
         return 1;
     }
 
-    struct cookie *cookies = 0;
-    if (!load_cookies(COOKIE_FILE_PATH, &cookies))
+    if (!load_cookies())
     {
         fprintf(stderr, "Failed to load cookies.\n");
         return 1;
@@ -1007,7 +1006,7 @@ int main()
 
                         if (parse_cookie_header(client, cookie_value, COOKIE_LEN + 1))
                         {
-                            char *username = verify_cookie(cookie_value, cookies);
+                            char *username = verify_cookie(cookie_value);
 
                             if (!username)
                             {
@@ -1049,7 +1048,7 @@ int main()
     }
 
     free_users(users);
-    free_cookies(cookies);
+    free_cookies();
     close(server);
     SSL_CTX_free(ctx);
     return 0;
