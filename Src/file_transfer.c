@@ -565,7 +565,7 @@ void handle_post_login(struct client_info **client_list, struct client_info *cli
             get_form_value(body, "username", username, sizeof(username));
 
             create_cookie(username, cookie_value, sizeof(cookie_value));
-            reload_cookies(cookies);
+            reload_cookies();
 
             char path_with_user[128];
             snprintf(path_with_user, sizeof(path_with_user), "/%s/home.html", username);

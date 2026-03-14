@@ -20,7 +20,7 @@ int load_cookies();
 
 void create_cookie(const char *username, char *cookie_value, size_t value_size);
 
-void reload_cookies(struct cookie **cookies);
+void reload_cookies();
 
 char *verify_cookie(const char *cookie_value);
 

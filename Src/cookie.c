@@ -65,16 +65,16 @@ void create_cookie(const char *username, char *cookie_value, size_t value_size)
     }
 }
 
-void reload_cookies(struct cookie **cookies)
+void reload_cookies()
 {
-    struct cookie *ck = *cookies;
+    struct cookie *ck = cookies;
     while (ck)
     {
         struct cookie *next = ck->next;
         free(ck);
         ck = next;
     }
-    *cookies = NULL;
+    cookies = NULL;
     load_cookies();
 }
 
