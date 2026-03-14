@@ -58,7 +58,8 @@ The server will listen on port 8080. Access it via:
 ```
 ├── Src/              # Source files
 │   ├── file_transfer.c    # Main server implementation
-│   └── client_info.c      # Client connection management
+│   ├── client_info.c      # Client connection management
+│   └── cookie.c           # Cookie implementation
 ├── Inc/              # Header files
 │   ├── client_info.h      # Client data structures
 │   ├── users.h            # User authentication functions
